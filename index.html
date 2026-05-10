@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurum Motors — Luxury Financing Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #f5f7fc;
+      font-family: 'DM Sans', sans-serif;
+      color: #0d1b3e;
+      -webkit-font-smoothing: antialiased;
+    }
+    input, select, textarea, button { font-family: 'DM Sans', sans-serif; }
+    a { text-decoration: none; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: #bfdbfe; border-radius: 99px; }
+
+    /* ── Range input ── */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 5px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #1d4ed8 var(--pct, 50%), #dbeafe var(--pct, 50%));
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #1d4ed8;
+      box-shadow: 0 2px 10px rgba(29,78,216,0.35);
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #1d4ed8;
+      box-shadow: 0 2px 10px rgba(29,78,216,0.35);
+    }
+
+    /* ── Animations ── */
+    .au-fade { animation: auFade 0.65s ease both; }
+    .au-fade-d1 { animation-delay: 0.1s; }
+    .au-fade-d2 { animation-delay: 0.2s; }
+    .au-fade-d3 { animation-delay: 0.3s; }
+    .au-fade-d4 { animation-delay: 0.4s; }
+    @keyframes auFade {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .au-pulse { animation: auPulse 2.8s ease-in-out infinite; display: inline-block; border-radius: 14px; }
+    @keyframes auPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(29,78,216,0.22); }
+      60%       { box-shadow: 0 0 0 14px rgba(29,78,216,0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .two-col { grid-template-columns: 1fr !important; }
+      .hide-sm { display: none !important; }
+    }
+    @media (min-width: 601px) {
+      .show-sm-only { display: none !important; }
+    }
+
+    /* ── Shared Card ── */
+    .card {
+      background: #fff;
+      border-radius: 22px;
+      border: 1px solid rgba(226,232,240,0.8);
+      box-shadow: 0 2px 24px rgba(13,27,62,0.055);
+      padding: 28px;
+    }
+
+    /* ── Field label ── */
+    .field-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #64748b;
+      display: block;
+      margin-bottom: 7px;
+    }
+    .field-label .req { color: #1d4ed8; margin-left: 2px; }
+
+    /* ── Input base ── */
+    .inp {
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-size: 15px;
+      color: #0d1b3e;
+      background: #fafbff;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .inp:focus {
+      border-color: #1d4ed8;
+      box-shadow: 0 0 0 3px rgba(29,78,216,0.12);
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb, #3b82f6);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 30px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      box-shadow: 0 4px 18px rgba(29,78,216,0.28);
+      cursor: pointer;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+      box-shadow: 0 10px 32px rgba(29,78,216,0.48);
+      transform: translateY(-2px);
+    }
+    .btn-primary:disabled { opacity: 0.58; cursor: not-allowed; }
+    .btn-primary.lg { border-radius: 14px; padding: 17px 44px; font-size: 16px; }
+    .btn-primary.full { width: 100%; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: #1d4ed8;
+      border: 1.5px solid #93c5fd;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: #eff6ff; }
+
+    /* ── Two-column grid ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+    /* ── Section heading ── */
+    .section-heading { margin-bottom: 26px; }
+    .section-heading .sh-row { display: flex; align-items: center; gap: 13px; margin-bottom: 6px; }
+    .section-heading .badge {
+      width: 34px; height: 34px;
+      border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+    }
+    .section-heading h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px; font-weight: 600; color: #0d1b3e;
+    }
+    .section-heading .sub { font-size: 13px; color: #94a3b8; margin-left: 47px; }
+
+    /* ── Header ── */
+    #site-header {
+      position: sticky; top: 0; z-index: 200;
+    }
+    #main-header {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      height: 66px;
+      display: flex; align-items: center;
+      padding: 0 24px;
+      justify-content: space-between;
+      transition: box-shadow 0.3s;
+    }
+    #main-header.scrolled { box-shadow: 0 4px 24px rgba(13,27,62,0.09); }
+    .logo { display: flex; align-items: center; gap: 11px; cursor: pointer; }
+    .logo-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0d1b3e, #1d4ed8);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .logo-text { line-height: 1; }
+    .logo-text .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px; font-weight: 700; color: #0d1b3e; letter-spacing: 0.04em;
+    }
+    .logo-text .sub-brand {
+      font-size: 8px; font-weight: 700; letter-spacing: 0.22em;
+      color: #94a3b8; text-transform: uppercase; margin-top: 1px;
+    }
+    nav.desktop a {
+      font-size: 13px; font-weight: 500; color: #64748b;
+      transition: color 0.2s;
+    }
+    nav.desktop a:hover { color: #1d4ed8; }
+    nav.desktop { display: flex; gap: 30px; }
+    .header-actions { display: flex; align-items: center; gap: 6px; }
+    .icon-btn {
+      background: none; border: none;
+      cursor: pointer; color: #475569;
+      padding: 8px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #mobile-menu {
+      display: none;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 12px 24px 16px;
+    }
+    #mobile-menu.open { display: block; }
+    #mobile-menu a {
+      display: block;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f4f9;
+      font-size: 15px; font-weight: 500; color: #0d1b3e;
+    }
+
+    /* ── Step progress ── */
+    #step-bar {
+      display: none;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 14px 24px 4px;
+    }
+    #step-bar.visible { display: block; }
+    .step-bar-inner {
+      max-width: 680px; margin: 0 auto;
+      display: flex; align-items: center;
+    }
+    .step-item { display: flex; align-items: center; flex: 1; }
+    .step-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .step-circle {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #f1f5f9; color: #94a3b8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+      transition: all 0.35s;
+    }
+    .step-circle.active, .step-circle.done {
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      color: #fff;
+    }
+    .step-circle.active { box-shadow: 0 0 0 5px rgba(29,78,216,0.14); }
+    .step-label {
+      font-size: 9.5px; color: #94a3b8; font-weight: 700;
+      letter-spacing: 0.06em; margin-top: 5px;
+      white-space: nowrap; text-transform: uppercase;
+    }
+    .step-label.active, .step-label.done { color: #1d4ed8; }
+    .step-line {
+      flex: 1; height: 2px; margin: 0 6px 18px;
+      border-radius: 1px; background: #e2e8f0; transition: background 0.4s;
+    }
+    .step-line.done { background: linear-gradient(90deg, #1d4ed8, #3b82f6); }
+
+    /* ── Pages ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── Hero ── */
+    #hero {
+      background: linear-gradient(140deg, #0d1b3e 0%, #1a3bbc 55%, #3b82f6 100%);
+      padding: 80px 24px 96px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-ring {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .hero-ring.r1 { width: 260px; height: 260px; top: -70px; right: -70px; }
+    .hero-ring.r2 { width: 180px; height: 180px; bottom: -90px; left: -50px; }
+    .hero-content { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(6px);
+      border-radius: 99px;
+      padding: 6px 18px;
+      margin-bottom: 22px;
+    }
+    .hero-badge-icon {
+      width: 16px; height: 16px;
+    }
+    .hero-badge span {
+      font-size: 11px; font-weight: 700;
+      color: rgba(255,255,255,0.88);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    #hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 7vw, 62px);
+      font-weight: 700; color: #fff; line-height: 1.12;
+      margin-bottom: 20px;
+    }
+    #hero p.sub {
+      font-size: clamp(15px, 2.8vw, 19px);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75; margin-bottom: 40px;
+      max-width: 480px; margin-left: auto; margin-right: auto;
+    }
+    .hero-note { color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 14px; letter-spacing: 0.04em; }
+
+    /* ── Trust strip ── */
+    #trust-strip {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 15px 24px;
+    }
+    .trust-inner {
+      max-width: 720px; margin: 0 auto;
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 12px 36px;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 500; color: #475569;
+    }
+    .trust-icon {
+      width: 15px; height: 15px; flex-shrink: 0; color: #1d4ed8;
+    }
+
+    /* ── Calculator section ── */
+    #calc-section {
+      max-width: 860px; margin: 0 auto;
+      padding: 56px 20px 72px;
+    }
+    .calc-header { text-align: center; margin-bottom: 44px; }
+    .calc-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 700; color: #0d1b3e; margin-bottom: 10px;
+    }
+    .calc-header p { color: #64748b; font-size: 15px; max-width: 440px; margin: 0 auto; }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px; align-items: start;
+    }
+
+    /* Loan term buttons */
+    .term-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .term-btn {
+      padding: 13px 4px; border-radius: 10px;
+      font-size: 13px; font-weight: 700;
+      border: 1.5px solid #e2e8f0;
+      background: #fafbff; color: #64748b;
+      cursor: pointer; transition: all 0.2s;
+      line-height: 1.3;
+    }
+    .term-btn span { display: block; font-size: 10px; font-weight: 400; opacity: 0.7; }
+    .term-btn.active {
+      border: 2px solid #1d4ed8;
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      color: #1d4ed8;
+      box-shadow: 0 2px 10px rgba(29,78,216,0.15);
+    }
+
+    /* Results column */
+    .results-col { display: flex; flex-direction: column; gap: 18px; }
+    .monthly-card {
+      background: linear-gradient(140deg, #0d1b3e 0%, #1d4ed8 100%);
+      border-radius: 22px; padding: 34px 28px; text-align: center;
+    }
+    .monthly-label {
+      color: rgba(255,255,255,0.58);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .monthly-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 10vw, 66px);
+      font-weight: 700; color: #fff;
+      line-height: 1; transition: all 0.3s;
+    }
+    .monthly-detail {
+      color: rgba(255,255,255,0.45);
+      font-size: 12px; margin-top: 12px;
+    }
+
+    /* Summary rows */
+    .summary-row {
+      display: flex; justify-content: space-between;
+      padding: 11px 0; border-bottom: 1px solid #f1f5f9; align-items: center;
+    }
+    .summary-row .lbl { font-size: 13px; color: #64748b; }
+    .summary-row .val { font-size: 14px; font-weight: 600; color: #0d1b3e; }
+    .summary-row .val.bold { font-weight: 800; color: #1d4ed8; }
+    .total-row {
+      display: flex; justify-content: space-between;
+      padding-top: 14px; margin-top: 2px;
+    }
+    .total-row .tl { font-size: 14px; font-weight: 700; color: #0d1b3e; }
+    .total-row .tv { font-size: 17px; font-weight: 800; color: #1d4ed8; }
+
+    /* ── Application Form ── */
+    #page-form, #page-review {
+      background: #f5f7fc; min-height: 100vh;
+      padding: 44px 20px 64px;
+    }
+    .form-inner, .review-inner { max-width: 720px; margin: 0 auto; }
+    .page-title { text-align: center; margin-bottom: 44px; }
+    .page-title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 700; color: #0d1b3e; margin-bottom: 10px;
+    }
+    .page-title p { color: #64748b; font-size: 15px; }
+    .form-sections { display: flex; flex-direction: column; gap: 26px; }
+    .form-nav {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-top: 36px;
+      flex-wrap: wrap; gap: 14px;
+    }
+
+    /* File upload box */
+    .file-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 14px; }
+    .file-box {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 8px; padding: 24px 16px; border-radius: 16px;
+      border: 2px dashed #cbd5e1;
+      background: #fafbff; cursor: pointer;
+      transition: all 0.22s; text-align: center; min-height: 120px;
+    }
+    .file-box.uploaded { border: 2px solid #1d4ed8; background: #eff6ff; }
+    .file-box input[type="file"] { display: none; }
+    .file-box-icon { font-size: 30px; line-height: 1; }
+    .file-box-name { font-size: 13px; font-weight: 600; color: #475569; }
+    .file-box.uploaded .file-box-name { color: #1d4ed8; }
+    .file-box-hint { font-size: 11px; color: #94a3b8; margin-top: 3px; }
+
+    /* ── Review page ── */
+    .review-sections { display: flex; flex-direction: column; gap: 22px; }
+    .finance-hero {
+      background: linear-gradient(140deg, #0d1b3e, #1d4ed8);
+      border-radius: 22px; padding: 32px 28px;
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: center; gap: 20px;
+    }
+    .finance-hero .lhs .label {
+      color: rgba(255,255,255,0.55); font-size: 11px;
+      font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .finance-hero .lhs .amount {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 8vw, 58px);
+      font-weight: 700; color: #fff; line-height: 1.05;
+    }
+    .finance-hero .lhs .detail {
+      color: rgba(255,255,255,0.45); font-size: 12px; margin-top: 6px;
+    }
+    .finance-hero .rhs { text-align: right; }
+    .finance-hero .rhs .label {
+      color: rgba(255,255,255,0.5); font-size: 11px;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .finance-hero .rhs .vehicle { color: #fff; font-size: 14px; font-weight: 600; max-width: 200px; }
+    .finance-hero .rhs .price { color: rgba(255,255,255,0.45); font-size: 12px; margin-top: 4px; }
+
+    .review-row {
+      display: flex; justify-content: space-between;
+      gap: 12px; padding: 9px 0; border-bottom: 1px solid #f1f5f9;
+    }
+    .review-row .rl { font-size: 13px; color: #64748b; flex-shrink: 0; }
+    .review-row .rv { font-size: 13px; font-weight: 600; color: #0d1b3e; text-align: right; }
+
+    .security-box {
+      background: #f8fafc; border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      padding: 20px 22px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .security-icon { flex-shrink: 0; margin-top: 2px; color: #1d4ed8; }
+    .security-box strong { font-weight: 700; color: #0d1b3e; font-size: 14px; display: block; margin-bottom: 5px; }
+    .security-box p { font-size: 13px; color: #64748b; line-height: 1.65; }
+
+    .auth-label { display: flex; gap: 14px; cursor: pointer; align-items: flex-start; }
+    .auth-label input[type="checkbox"] {
+      width: 20px; height: 20px;
+      accent-color: #1d4ed8; cursor: pointer; flex-shrink: 0; margin-top: 2px;
+    }
+    .auth-text { font-size: 14px; color: #475569; line-height: 1.75; }
+
+    .error-box {
+      background: #fef2f2; border: 1px solid #fca5a5;
+      border-radius: 12px; padding: 14px 18px;
+    }
+    .error-box p { color: #dc2626; font-size: 14px; font-weight: 500; }
+
+    /* ── Success page ── */
+    #page-success {
+      display: none;
+      min-height: 100vh; background: #f5f7fc;
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    #page-success.active { display: flex; }
+    .success-wrap { text-align: center; max-width: 500px; }
+    .success-icon {
+      width: 100px; height: 100px; border-radius: 50%;
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .success-wrap h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; font-weight: 700; color: #0d1b3e; margin-bottom: 14px;
+    }
+    .success-wrap p { color: #64748b; font-size: 16px; line-height: 1.75; margin-bottom: 20px; }
+    .success-details {
+      background: #eff6ff; border-radius: 14px;
+      padding: 16px 20px; margin-bottom: 24px; text-align: left;
+    }
+    .success-details p { font-size: 13px; color: #1e40af; font-weight: 600; }
+    .success-details p + p { margin-top: 8px; }
+    .success-contact { font-size: 13px; color: #94a3b8; }
+    .success-contact strong { color: #1d4ed8; }
+
+    /* ── Section sub-label ── */
+    .section-sub-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #94a3b8; margin-bottom: 4px;
+    }
+
+    /* ── APR row ── */
+    .apr-row {
+      display: flex; justify-content: space-between; margin-bottom: 12px;
+    }
+    .apr-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #64748b;
+    }
+    .apr-val { font-size: 18px; font-weight: 800; color: #1d4ed8; }
+    .range-hints { display: flex; justify-content: space-between; margin-top: 7px; }
+    .range-hints span { font-size: 11px; color: #94a3b8; }
+
+    /* ── Down payment input wrapper ── */
+    .dp-wrap { position: relative; }
+    .dp-prefix {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8; font-weight: 700; font-size: 16px;
+      pointer-events: none;
+    }
+    .dp-wrap .inp { padding-left: 28px; }
+    .dp-hints { display: flex; justify-content: space-between; margin-top: 8px; }
+    .dp-hints span { font-size: 11px; color: #94a3b8; }
+
+    /* ── Calc CTA ── */
+    .calc-cta { text-align: center; margin-top: 48px; }
+    .calc-cta p { font-size: 12px; color: #94a3b8; margin-top: 12px; }
+
+    /* ── Submit note ── */
+    .submit-note { font-size: 11px; color: #94a3b8; margin-top: 12px; text-align: center; }
+    .submit-note a { color: #1d4ed8; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div id="site-header">
+  <header id="main-header">
+    <!-- Logo -->
+    <div class="logo" onclick="goPage(0)">
+      <div class="logo-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+          <line x1="12" y1="22" x2="12" y2="12" stroke="#fff" stroke-width="1.6"/>
+          <polyline points="2,7 12,12 22,7" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="brand">AURUM</div>
+        <div class="sub-brand">MOTORS</div>
+      </div>
+    </div>
+
+    <!-- Desktop nav -->
+    <nav class="desktop hide-sm">
+      <a href="#">Inventory</a>
+      <a href="#">Finance</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Shop">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
+        <svg id="menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu">
+    <a href="#">Inventory</a>
+    <a href="#">Finance</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <!-- Step progress bar -->
+  <div id="step-bar">
+    <div class="step-bar-inner">
+      <div class="step-item">
+        <div class="step-col">
+          <div class="step-circle" id="step-circle-0">1</div>
+          <span class="step-label" id="step-label-0">Calculator</span>
+        </div>
+        <div class="step-line" id="step-line-0"></div>
+      </div>
+      <div class="step-item">
+        <div class="step-col">
+          <div class="step-circle" id="step-circle-1">2</div>
+          <span class="step-label" id="step-label-1">Application</span>
+        </div>
+        <div class="step-line" id="step-line-1"></div>
+      </div>
+      <div class="step-item">
+        <div class="step-col">
+          <div class="step-circle" id="step-circle-2">3</div>
+          <span class="step-label" id="step-label-2">Review &amp; Submit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 0 — HERO + CALCULATOR ═══ -->
+<div id="page-calc" class="page active">
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-ring r1"></div>
+    <div class="hero-ring r2"></div>
+    <div class="hero-content au-fade">
+      <div class="hero-badge">
+        <svg class="hero-badge-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="2">
+          <circle cx="12" cy="8" r="6"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
+        </svg>
+        <span>Luxury Financing Portal</span>
+      </div>
+      <h1>Apply for<br/>Financing</h1>
+      <p class="sub">Get pre-approved in minutes and drive your dream car today.</p>
+      <div class="au-pulse">
+        <button class="btn-primary lg" onclick="goPage(1)">Start Application &nbsp;&rarr;</button>
+      </div>
+      <p class="hero-note">No hard credit pull required to get started</p>
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <div id="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        256-bit SSL
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Instant Pre-Approval
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8L2 7h20l-6-4z"/></svg>
+        20+ Lenders
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        5-Star Rated
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        FCRA Compliant
+      </div>
+    </div>
+  </div>
+
+  <!-- Calculator section -->
+  <section id="calc-section">
+    <div class="calc-header au-fade">
+      <h2>Finance Calculator</h2>
+      <p>Adjust the sliders to estimate your monthly payment in real time.</p>
+    </div>
+
+    <div class="calc-grid">
+
+      <!-- Controls card -->
+      <div class="card au-fade au-fade-d1">
+
+        <!-- Loan term -->
+        <div style="margin-bottom:30px">
+          <label class="field-label">Loan Term</label>
+          <div class="term-grid" id="term-grid">
+            <button class="term-btn" data-term="36" onclick="setTerm(36)">36<span>mo</span></button>
+            <button class="term-btn" data-term="48" onclick="setTerm(48)">48<span>mo</span></button>
+            <button class="term-btn active" data-term="60" onclick="setTerm(60)">60<span>mo</span></button>
+            <button class="term-btn" data-term="72" onclick="setTerm(72)">72<span>mo</span></button>
+          </div>
+        </div>
+
+        <!-- APR -->
+        <div style="margin-bottom:30px">
+          <div class="apr-row">
+            <span class="apr-label">APR Rate</span>
+            <span class="apr-val" id="apr-display">5.9%</span>
+          </div>
+          <input type="range" id="apr-range" min="1.9" max="18" step="0.1" value="5.9"
+            style="--pct:24.5%" oninput="updateAPR(this)" />
+          <div class="range-hints">
+            <span>Excellent 1.9%</span>
+            <span>18.0%</span>
+          </div>
+        </div>
+
+        <!-- Down payment -->
+        <div>
+          <label class="field-label">Down Payment</label>
+          <div class="dp-wrap">
+            <span class="dp-prefix">$</span>
+            <input type="number" class="inp" id="down-pay" value="10000" min="0" max="87499"
+              oninput="updateDown(this)" />
+          </div>
+          <div class="dp-hints">
+            <span>0%</span>
+            <span id="down-pct">(11% of price)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="results-col">
+        <div class="monthly-card au-fade au-fade-d2">
+          <div class="monthly-label">Estimated Monthly Payment</div>
+          <div class="monthly-amount" id="monthly-display">$1,534</div>
+          <div class="monthly-detail" id="monthly-detail">60 months &middot; 5.9% APR &middot; $10,000 down</div>
+        </div>
+
+        <div class="card au-fade au-fade-d3" style="padding:22px 24px">
+          <div class="section-sub-label">Payment Summary</div>
+          <div class="summary-row"><span class="lbl">Vehicle Price</span><span class="val" id="sum-price">$87,500</span></div>
+          <div class="summary-row"><span class="lbl">Down Payment</span><span class="val" id="sum-down">$10,000</span></div>
+          <div class="summary-row"><span class="lbl">Amount Financed</span><span class="val" id="sum-financed">$77,500</span></div>
+          <div class="summary-row"><span class="lbl">Total Interest</span><span class="val" id="sum-interest">$14,531</span></div>
+          <div class="total-row">
+            <span class="tl">Total Cost</span>
+            <span class="tv" id="sum-total">$102,031</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-cta au-fade au-fade-d4">
+      <button class="btn-primary lg" onclick="goPage(1)">Begin My Application &nbsp;&rarr;</button>
+      <p>Rates are estimates only. Final rate determined by your lending partner.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ PAGE 1 — APPLICATION FORM ═══ -->
+<div id="page-form" class="page">
+  <div class="form-inner">
+    <div class="page-title au-fade">
+      <h2>Your Application</h2>
+      <p>All data is transmitted with 256-bit SSL encryption.</p>
+    </div>
+
+    <div class="form-sections">
+
+      <!-- Section A — Personal -->
+      <div class="card au-fade">
+        <div class="section-heading">
+          <div class="sh-row"><div class="badge">A</div><h3>Personal Information</h3></div>
+          <p class="sub">Your identification &amp; contact details</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="two-col">
+            <div><label class="field-label">First Name<span class="req">*</span></label><input class="inp" type="text" id="firstName" placeholder="James" /></div>
+            <div><label class="field-label">Last Name<span class="req">*</span></label><input class="inp" type="text" id="lastName" placeholder="Carter" /></div>
+          </div>
+          <div class="two-col">
+            <div><label class="field-label">Email Address<span class="req">*</span></label><input class="inp" type="email" id="email" placeholder="you@email.com" /></div>
+            <div><label class="field-label">Phone Number<span class="req">*</span></label><input class="inp" type="tel" id="phone" placeholder="(555) 000-0000" maxlength="14" /></div>
+          </div>
+          <div class="two-col">
+            <div><label class="field-label">Date of Birth<span class="req">*</span></label><input class="inp" type="date" id="dob" /></div>
+            <div><label class="field-label">SSN — Last 4 Digits<span class="req">*</span></label><input class="inp" type="password" id="ssn" placeholder="••••" maxlength="4" /></div>
+          </div>
+          <div><label class="field-label">Driver's License Number<span class="req">*</span></label><input class="inp" type="text" id="dlNum" placeholder="DL-XXXXXXXX" /></div>
+        </div>
+      </div>
+
+      <!-- Section B — Residential -->
+      <div class="card au-fade au-fade-d1">
+        <div class="section-heading">
+          <div class="sh-row"><div class="badge">B</div><h3>Residential Information</h3></div>
+          <p class="sub">Your current home address</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div><label class="field-label">Street Address<span class="req">*</span></label><input class="inp" type="text" id="address" placeholder="123 Wilshire Blvd" /></div>
+          <div class="two-col">
+            <div><label class="field-label">City<span class="req">*</span></label><input class="inp" type="text" id="city" placeholder="Beverly Hills" /></div>
+            <div>
+              <label class="field-label">State<span class="req">*</span></label>
+              <select class="inp" id="state" style="cursor:pointer">
+                <option value="">Select...</option>
+                <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+                <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+                <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+                <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+                <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+                <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+                <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+                <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+                <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+                <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+                <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+                <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+                <option>WI</option><option>WY</option>
+              </select>
+            </div>
+          </div>
+          <div class="two-col">
+            <div><label class="field-label">ZIP Code<span class="req">*</span></label><input class="inp" type="text" id="zip" placeholder="90210" maxlength="5" /></div>
+            <div>
+              <label class="field-label">Residence Type<span class="req">*</span></label>
+              <select class="inp" id="resType" style="cursor:pointer">
+                <option value="">Select...</option>
+                <option>Own</option><option>Rent</option><option>Live with Family</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div><label class="field-label">Monthly Rent / Mortgage ($)</label><input class="inp" type="number" id="monthRent" placeholder="3000" /></div>
+        </div>
+      </div>
+
+      <!-- Section C — Employment -->
+      <div class="card au-fade au-fade-d2">
+        <div class="section-heading">
+          <div class="sh-row"><div class="badge">C</div><h3>Employment Information</h3></div>
+          <p class="sub">Your current employer &amp; income</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="two-col">
+            <div><label class="field-label">Employer Name<span class="req">*</span></label><input class="inp" type="text" id="employer" placeholder="Acme Inc." /></div>
+            <div><label class="field-label">Occupation / Title</label><input class="inp" type="text" id="occupation" placeholder="Financial Analyst" /></div>
+          </div>
+          <div class="two-col">
+            <div><label class="field-label">Monthly Gross Income ($)<span class="req">*</span></label><input class="inp" type="number" id="income" placeholder="9500" /></div>
+            <div>
+              <label class="field-label">Employment Length</label>
+              <select class="inp" id="empLen" style="cursor:pointer">
+                <option value="">Select...</option>
+                <option>&lt; 6 months</option><option>6–12 months</option>
+                <option>1–2 years</option><option>2–5 years</option>
+                <option>5–10 years</option><option>10+ years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section D — Vehicle -->
+      <div class="card au-fade au-fade-d3">
+        <div class="section-heading">
+          <div class="sh-row"><div class="badge">D</div><h3>Vehicle Information</h3></div>
+          <p class="sub">Tell us what you're looking at</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div>
+            <label class="field-label">Vehicle Interested In<span class="req">*</span></label>
+            <select class="inp" id="vehicle" style="cursor:pointer">
+              <option value="">Select...</option>
+              <option>2024 Aurum GT850 Sedan</option>
+              <option>2024 Aurum Apex SUV</option>
+              <option>2024 Aurum Vela Coupe</option>
+              <option>2024 Aurum Crest Convertible</option>
+              <option>2025 Aurum Phantom Sedan</option>
+              <option>2025 Aurum Atlas SUV</option>
+              <option>Custom / Special Order</option>
+            </select>
+          </div>
+          <div class="two-col">
+            <div>
+              <label class="field-label">Desired Loan Term</label>
+              <select class="inp" id="desiredTerm" style="cursor:pointer">
+                <option value="">Select...</option>
+                <option>36 months</option><option>48 months</option>
+                <option>60 months</option><option>72 months</option>
+              </select>
+            </div>
+            <div><label class="field-label">Down Payment ($)</label><input class="inp" type="number" id="appDown" placeholder="10000" /></div>
+          </div>
+          <div><label class="field-label">Trade-In Vehicle (Optional)</label><input class="inp" type="text" id="tradeIn" placeholder="e.g. 2021 BMW 5 Series, 32k miles" /></div>
+        </div>
+      </div>
+
+      <!-- Document uploads -->
+      <div class="card au-fade au-fade-d4">
+        <div class="section-heading">
+          <div class="sh-row"><h3>Document Uploads</h3></div>
+          <p class="sub" style="margin-left:0">Optional — speeds up your approval significantly</p>
+        </div>
+        <div class="file-grid">
+          <label class="file-box" id="file-lic">
+            <input type="file" accept="image/*,.pdf" onchange="handleFile(this,'lic')" />
+            <div class="file-box-icon" id="icon-lic">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg>
+            </div>
+            <div>
+              <p class="file-box-name" id="name-lic">Driver's License</p>
+              <p class="file-box-hint" id="hint-lic">PDF, JPG or PNG</p>
+            </div>
+          </label>
+          <label class="file-box" id="file-inc">
+            <input type="file" accept="image/*,.pdf" onchange="handleFile(this,'inc')" />
+            <div class="file-box-icon" id="icon-inc">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+            </div>
+            <div>
+              <p class="file-box-name" id="name-inc">Proof of Income</p>
+              <p class="file-box-hint" id="hint-inc">PDF, JPG or PNG</p>
+            </div>
+          </label>
+          <label class="file-box" id="file-ins">
+            <input type="file" accept="image/*,.pdf" onchange="handleFile(this,'ins')" />
+            <div class="file-box-icon" id="icon-ins">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <p class="file-box-name" id="name-ins">Insurance Docs</p>
+              <p class="file-box-hint" id="hint-ins">PDF, JPG or PNG</p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+    </div><!-- end form-sections -->
+
+    <div class="form-nav">
+      <button class="btn-ghost" onclick="goPage(0)">&larr; Back to Calculator</button>
+      <button class="btn-primary lg" onclick="submitForm()">Review Application &nbsp;&rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 2 — REVIEW & SUBMIT ═══ -->
+<div id="page-review" class="page">
+  <div class="review-inner">
+    <div class="page-title au-fade">
+      <h2>Review &amp; Submit</h2>
+      <p>Take a final look before we submit your application.</p>
+    </div>
+
+    <div class="review-sections">
+
+      <!-- Finance hero card -->
+      <div class="finance-hero au-fade">
+        <div class="lhs">
+          <div class="label">Monthly Payment</div>
+          <div class="amount" id="rev-monthly">$1,534</div>
+          <div class="detail" id="rev-terms">60 mo &middot; 5.9% APR &middot; $10,000 down</div>
+        </div>
+        <div class="rhs">
+          <div class="label">Vehicle</div>
+          <div class="vehicle" id="rev-vehicle">Aurum Select</div>
+          <div class="price">Vehicle Price: $87,500</div>
+        </div>
+      </div>
+
+      <!-- Applicant details -->
+      <div class="card au-fade au-fade-d1">
+        <div class="section-sub-label">Applicant Details</div>
+        <div id="review-rows"></div>
+      </div>
+
+      <!-- Security badge -->
+      <div class="security-box au-fade au-fade-d2">
+        <div class="security-icon">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <strong>Bank-Grade Security &amp; Privacy</strong>
+          <p>Your application is protected by 256-bit SSL encryption. Aurum Motors complies with GLBA, FCRA, and all applicable federal privacy regulations. Your SSN is never stored in plaintext.</p>
+        </div>
+      </div>
+
+      <!-- Authorization -->
+      <div class="card au-fade au-fade-d3">
+        <label class="auth-label">
+          <input type="checkbox" id="auth-check" onchange="toggleAuth(this)" />
+          <span class="auth-text">
+            I authorize <strong>Aurum Motors</strong> and its affiliated lending partners to obtain my credit report and verify all information provided in this application. I certify that all information is accurate and complete to the best of my knowledge.
+          </span>
+        </label>
+      </div>
+
+      <!-- Error message -->
+      <div class="error-box" id="error-box" style="display:none">
+        <p id="error-msg"></p>
+      </div>
+
+      <!-- Submit -->
+      <div class="au-fade au-fade-d4" style="text-align:center">
+        <button class="btn-primary lg full" id="submit-btn" disabled onclick="submitApplication()">Submit Application</button>
+        <p class="submit-note">By submitting you agree to our <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.</p>
+      </div>
+
+      <div><button class="btn-ghost" onclick="goPage(1)">&larr; Edit Application</button></div>
+
+    </div><!-- end review-sections -->
+  </div>
+</div>
+
+<!-- ═══ SUCCESS PAGE ═══ -->
+<div id="page-success">
+  <div class="success-wrap au-fade">
+    <div class="success-icon">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h2>You're All Set!</h2>
+    <p>Thank you, <strong id="success-name">Applicant</strong>! Your application has been received and forwarded to our finance team. Expect a response within <strong>24 hours</strong>.</p>
+    <div class="success-details">
+      <p>Confirmation sent to: <span id="success-email"></span></p>
+      <p>Reference ID: <span id="success-ref"></span></p>
+    </div>
+    <p class="success-contact">Questions? <strong>1-800-AURUM-FI</strong></p>
+  </div>
+</div>
+
+<script>
+  /* ── Constants ── */
+  const VEHICLE_PRICE = 87500;
+  const FORMSUBMIT    = "https://formsubmit.co/timialonge07@gmail.com";
+
+  /* ── State ── */
+  let state = {
+    page:     0,
+    loanTerm: 60,
+    apr:      5.9,
+    downPay:  10000,
+    auth:     false
+  };
+
+  /* ── Utilities ── */
+  function fmtUSD(n) {
+    return "$" + Math.max(0, Math.round(n)).toLocaleString();
+  }
+  function calcMonthly(price, down, apr, mo) {
+    const p = Math.max(0, price - down);
+    if (p === 0) return 0;
+    if (apr === 0) return p / mo;
+    const r = apr / 100 / 12;
+    return p * r / (1 - Math.pow(1 + r, -mo));
+  }
+  function randRef() {
+    return "AUR-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+  }
+
+  /* ── Scroll detection ── */
+  window.addEventListener("scroll", () => {
+    document.getElementById("main-header").classList.toggle("scrolled", window.scrollY > 12);
+  });
+
+  /* ── Mobile menu ── */
+  let menuOpen = false;
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    const menu = document.getElementById("mobile-menu");
+    const icon  = document.getElementById("menu-icon");
+    menu.classList.toggle("open", menuOpen);
+    icon.innerHTML = menuOpen
+      ? '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'
+      : '<line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>';
+  }
+
+  /* ── Page navigation ── */
+  const PAGES = ["page-calc","page-form","page-review"];
+  function goPage(n) {
+    state.page = n;
+    PAGES.forEach((id, i) => {
+      document.getElementById(id).classList.toggle("active", i === n);
+    });
+    document.getElementById("page-success").classList.remove("active");
+    updateStepBar(n);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function updateStepBar(page) {
+    const bar = document.getElementById("step-bar");
+    bar.classList.toggle("visible", page > 0);
+    for (let i = 0; i < 3; i++) {
+      const circle = document.getElementById("step-circle-" + i);
+      const label  = document.getElementById("step-label-"  + i);
+      circle.classList.toggle("done",   i < page);
+      circle.classList.toggle("active", i === page);
+      label.classList.toggle("done",    i < page);
+      label.classList.toggle("active",  i === page);
+      circle.textContent = i < page ? "✓" : (i + 1);
+      if (i < 2) {
+        document.getElementById("step-line-" + i)
+          .classList.toggle("done", i < page);
+      }
+    }
+  }
+
+  /* ── Calculator ── */
+  function calcAll() {
+    const { loanTerm, apr, downPay } = state;
+    const monthly  = calcMonthly(VEHICLE_PRICE, downPay, apr, loanTerm);
+    const financed = Math.max(0, VEHICLE_PRICE - downPay);
+    const totalPmt = monthly * loanTerm;
+    const interest = Math.max(0, totalPmt - financed);
+    const total    = VEHICLE_PRICE + interest;
+    const pct      = ((apr - 1.9) / (18 - 1.9) * 100).toFixed(1);
+
+    document.getElementById("monthly-display").textContent = fmtUSD(monthly);
+    document.getElementById("monthly-detail").textContent =
+      `${loanTerm} months · ${apr.toFixed(1)}% APR · ${fmtUSD(downPay)} down`;
+    document.getElementById("sum-price").textContent    = fmtUSD(VEHICLE_PRICE);
+    document.getElementById("sum-down").textContent     = fmtUSD(downPay);
+    document.getElementById("sum-financed").textContent = fmtUSD(financed);
+    document.getElementById("sum-interest").textContent = fmtUSD(interest);
+    document.getElementById("sum-total").textContent    = fmtUSD(total);
+    document.getElementById("down-pct").textContent =
+      `(${((downPay / VEHICLE_PRICE) * 100).toFixed(0)}% of price)`;
+
+    const aprRange = document.getElementById("apr-range");
+    aprRange.style.setProperty("--pct", pct + "%");
+  }
+
+  function setTerm(t) {
+    state.loanTerm = t;
+    document.querySelectorAll(".term-btn").forEach(btn => {
+      btn.classList.toggle("active", parseInt(btn.dataset.term) === t);
+    });
+    calcAll();
+  }
+
+  function updateAPR(el) {
+    state.apr = parseFloat(el.value);
+    document.getElementById("apr-display").textContent = state.apr.toFixed(1) + "%";
+    calcAll();
+  }
+
+  function updateDown(el) {
+    state.downPay = Math.min(VEHICLE_PRICE - 1, Math.max(0, parseInt(el.value) || 0));
+    calcAll();
+  }
+
+  /* ── File upload ── */
+  function handleFile(input, key) {
+    const file = input.files[0];
+    if (!file) return;
+    const box  = document.getElementById("file-" + key);
+    const name = document.getElementById("name-" + key);
+    const hint = document.getElementById("hint-" + key);
+    const icon = document.getElementById("icon-" + key);
+    box.classList.add("uploaded");
+    name.textContent = file.name;
+    hint.textContent = "Tap to replace";
+    icon.innerHTML = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+  }
+
+  /* ── Form submission (page 1 -> 2) ── */
+  function submitForm() {
+    const get = id => document.getElementById(id).value.trim();
+    if (!get("firstName") || !get("lastName") || !get("email") || !get("phone")) {
+      alert("Please complete all required Personal Information fields."); return;
+    }
+    if (!get("address") || !get("city") || !get("state") || !get("zip")) {
+      alert("Please complete all required Residential Information fields."); return;
+    }
+    if (!get("employer") || !get("income")) {
+      alert("Please complete all required Employment fields."); return;
+    }
+    if (!get("vehicle")) {
+      alert("Please select a vehicle of interest."); return;
+    }
+    buildReview();
+    goPage(2);
+  }
+
+  /* ── Build review page ── */
+  function buildReview() {
+    const get = id => document.getElementById(id).value.trim();
+    const { loanTerm, apr, downPay } = state;
+    const monthly = calcMonthly(VEHICLE_PRICE, downPay, apr, loanTerm);
+
+    document.getElementById("rev-monthly").textContent = fmtUSD(monthly);
+    document.getElementById("rev-terms").textContent =
+      `${loanTerm} mo · ${apr.toFixed(1)}% APR · ${fmtUSD(downPay)} down`;
+    document.getElementById("rev-vehicle").textContent = get("vehicle") || "Aurum Select";
+
+    const pairs = [
+      ["Full Name",         `${get("firstName")} ${get("lastName")}`],
+      ["Email",             get("email")],
+      ["Phone",             get("phone")],
+      ["Date of Birth",     get("dob")],
+      ["Driver License",    get("dlNum")],
+      ["Address",           [get("address"), get("city"), get("state"), get("zip")].filter(Boolean).join(", ")],
+      ["Residence",         get("resType")],
+      ["Monthly Rent",      get("monthRent") ? "$" + Number(get("monthRent")).toLocaleString() : null],
+      ["Employer",          get("employer")],
+      ["Occupation",        get("occupation")],
+      ["Monthly Income",    get("income") ? "$" + Number(get("income")).toLocaleString() : null],
+      ["Employment Length", get("empLen")],
+      ["Trade-In Vehicle",  get("tradeIn") || "None"],
+    ];
+
+    const container = document.getElementById("review-rows");
+    container.innerHTML = pairs
+      .filter(([,v]) => v)
+      .map(([l, v]) => `
+        <div class="review-row">
+          <span class="rl">${l}</span>
+          <span class="rv">${v}</span>
+        </div>`)
+      .join("");
+  }
+
+  /* ── Auth checkbox ── */
+  function toggleAuth(el) {
+    state.auth = el.checked;
+    document.getElementById("submit-btn").disabled = !state.auth;
+    if (state.auth) hideError();
+  }
+
+  function showError(msg) {
+    const box = document.getElementById("error-box");
+    document.getElementById("error-msg").textContent = msg;
+    box.style.display = "block";
+  }
+  function hideError() {
+    document.getElementById("error-box").style.display = "none";
+  }
+
+  /* ── Final form submission ── */
+  async function submitApplication() {
+    if (!state.auth) { showError("Please check the authorization box to continue."); return; }
+    hideError();
+    const btn = document.getElementById("submit-btn");
+    btn.disabled = true;
+    btn.textContent = "Submitting Application...";
+
+    const get = id => document.getElementById(id).value.trim();
+    const { loanTerm, apr, downPay } = state;
+    const monthly = calcMonthly(VEHICLE_PRICE, downPay, apr, loanTerm);
+
+    const body = new FormData();
+    body.append("_subject",  "New Aurum Motors Financing Application");
+    body.append("_template", "table");
+    body.append("_captcha",  "false");
+
+    const pairs = {
+      "Full Name":          `${get("firstName")} ${get("lastName")}`,
+      "Email":              get("email"),
+      "Phone":              get("phone"),
+      "Date of Birth":      get("dob"),
+      "SSN (last 4)":       get("ssn") ? `****${get("ssn")}` : "—",
+      "Driver License #":   get("dlNum"),
+      "Address":            `${get("address")}, ${get("city")}, ${get("state")} ${get("zip")}`,
+      "Residence Type":     get("resType") || "—",
+      "Monthly Rent":       get("monthRent") ? `$${Number(get("monthRent")).toLocaleString()}` : "—",
+      "Employer":           get("employer"),
+      "Occupation":         get("occupation") || "—",
+      "Monthly Income":     get("income") ? `$${Number(get("income")).toLocaleString()}` : "—",
+      "Employment Length":  get("empLen") || "—",
+      "Vehicle":            get("vehicle"),
+      "Desired Loan Term":  get("desiredTerm") || `${loanTerm} months`,
+      "Down Payment (Form)":get("appDown") ? `$${Number(get("appDown")).toLocaleString()}` : "—",
+      "Trade-In":           get("tradeIn") || "None",
+      "--- Calculator ---": "---",
+      "Vehicle Price":      fmtUSD(VEHICLE_PRICE),
+      "Calc Down Payment":  fmtUSD(downPay),
+      "APR":                `${apr.toFixed(1)}%`,
+      "Loan Term":          `${loanTerm} months`,
+      "Est. Monthly":       fmtUSD(monthly),
+    };
+
+    Object.entries(pairs).forEach(([k, v]) => body.append(k, v));
+
+    try {
+      const r = await fetch(FORMSUBMIT, { method: "POST", body, headers: { Accept: "application/json" } });
+      if (r.ok) {
+        showSuccess(get("firstName"), get("email"));
+      } else {
+        throw new Error();
+      }
+    } catch {
+      showError("Submission failed. Please try again or call 1-800-AURUM-FI.");
+      btn.disabled = false;
+      btn.textContent = "Submit Application";
+    }
+  }
+
+  function showSuccess(name, email) {
+    PAGES.forEach(id => document.getElementById(id).classList.remove("active"));
+    document.getElementById("step-bar").classList.remove("visible");
+    const s = document.getElementById("page-success");
+    s.classList.add("active");
+    document.getElementById("success-name").textContent  = name;
+    document.getElementById("success-email").textContent = email;
+    document.getElementById("success-ref").textContent   = randRef();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  /* ── Init calculator ── */
+  calcAll();
+</script>
+</body>
+</html>
